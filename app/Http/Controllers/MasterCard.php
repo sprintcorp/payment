@@ -12,7 +12,7 @@ use MasterCard\Api\Crossborder\Quotes;
 
 class MasterCard extends Controller
 {
-    protected $consumerKey = "your consumer key";   // You should copy this from "My Keys" on your project page e.g. UTfbhDCSeNYvJpLL5l028sWL9it739PYh6LU5lZja15xcRpY!fd209e6c579dc9d7be52da93d35ae6b6c167c174690b72fa
+    protected $consumerKey = "9L9J3kb56JNsPPDM18u-qignHnO21_Wr1wGFf_ow607cddd5!b182dc7fe71b44088045adc32d84968c0000000000000000";   // You should copy this from "My Keys" on your project page e.g. UTfbhDCSeNYvJpLL5l028sWL9it739PYh6LU5lZja15xcRpY!fd209e6c579dc9d7be52da93d35ae6b6c167c174690b72fa
     protected $keyAlias = "keyalias";   // For production: change this to the key alias you chose when you created your production key
     protected $keyPassword = "keystorepassword";   // For production: change this to the key alias you chose when you created your production key
     protected $partnerId = "ptnr_BEeCrYJHh";
@@ -38,11 +38,14 @@ class MasterCard extends Controller
 
     public function getProposal()
     {
+
+
+
         try {
             $map = new RequestMap();
             $map->set("partner-id", $this->partnerId);
-            $map->set("quoterequest.transaction_reference", "09930432584935301737");
             $map->set("quoterequest.sender_account_uri", "tel:+254060005");
+            $map->set("quoterequest.transaction_reference", str_random(20));
             $map->set("quoterequest.recipient_account_uri", "tel:+254110108");
             //$map->set("quoterequest.bank_code", "NP021");
             $map->set("quoterequest.quote_type.reverse.sender_currency", "USD");
@@ -91,7 +94,7 @@ class MasterCard extends Controller
             $this->err("Message: " . $e->getMessage());
             $this->err("ReasonCode: " . $e->getReasonCode());
             $this->err("Source: " . $e->getSource());
-            print_r($e);
+//            print_r($e);
         }
     }
 
@@ -102,7 +105,8 @@ class MasterCard extends Controller
 
     function outObj($response, $key)
     {
-        echo "$key-->{$response[$key]}\n";
+//        echo "$key-->{$response[$key]}\n";
+        print_r($response[$key]);
     }
 
     function errObj($response, $key)
